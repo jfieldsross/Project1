@@ -38,7 +38,7 @@ class SetUp:
         return instructions
 
     @classmethod
-    def imm_bit_to_32_bit_converter(cls,num, bitsize):
+    def imm_bit_to_32_bit_converter(cls, num, bitsize):
         negBitMask = 2**(bitsize - 1)  # bit mask to determine if the first digit is a 1 or 0
         extendMask = 0
 
@@ -55,32 +55,33 @@ class SetUp:
         return num
 
     @classmethod
-    def immSignedToTwosConverter(cls,num): #num is assumed to be 32 bits
+    def immSignedToTwosConverter(cls, num): #num is assumed to be 32 bits
         negBitMask = 0x80000000
-        bitFlipMask = 0x7FFFFFFF  # num xor bitFlipMask toggles all bits except for the first one
-
+        bitFlipMask = 0xFFFFFFFF  # num xor bitFlipMask toggles all bits except for the first one
+        #Changed bitFlipMask to mirror method above. prior gave incorrect response. --JFR
         if (num & negBitMask) > 0:  #if number is negative
             # convert to twos complement by flipping bits and adding 1
             num = num ^ bitFlipMask
             num += 1
+            num = num * -1
         # if num is positive, it is already in twos complement :)
 
         return num
 
     @classmethod
-    def bin2StringSpaced(cls,s):
+    def bin2StringSpaced(cls, s):
         spacedStr = s[0:8] + " " + s[8:11] + " " + s[11:16] + " " + s[16:21] + " " + s[21:26] + " " + s[26:32]
-        return spacedStr;
+        return spacedStr
 
     @classmethod
-    def bin2StringSpacedD(cls,s):
+    def bin2StringSpacedD(cls, s):
         spacedStr = s[0:11] + " " + s[11:20] + " " + s[20:22] + " " + s[22:27] + " " + s[27:32]
-        return spacedStr;
+        return spacedStr
 
     @classmethod
     def bin2StringSpacedIM(cls, s):
         spacedStr = s[0:9] + " " + s[9:11] + " " + s[11:27] + " " + s[27:32]
-        return spacedStr;
+        return spacedStr
 
     @classmethod
     def bin2StringSpacedCB(cls, s):
@@ -95,15 +96,15 @@ class SetUp:
     @classmethod
     def bin2StringSpacedR(cls, s):
         spacedStr = s[0:11] + " " + s[11:16] + " " + s[16:22] + " " + s[22:27] + " " + s[27:32]
-        return spacedStr;
+        return spacedStr
 
     @classmethod
     def bin2StringSpacedB(cls, s):
         spacedStr = s[0:6] + " " + s[6:32]
-        return spacedStr;
+        return spacedStr
 
     @classmethod
-    def imm_32_bit_unsigned_to_32_bit_signed_converter(cls,num):
+    def imm_32_bit_unsigned_to_32_bit_signed_converter(cls, num):
         firstBitOneMask = 0X80000000 #or
         firstBitZeroMask = 0X7FFFFFFF #and
         if (num < 0):
@@ -113,12 +114,12 @@ class SetUp:
         return num
 
     @classmethod
-    def decimalToBinary(cls,num):
+    def decimalToBinary(cls, num):
         if num > 1:
             cls.decimalToBinary(num // 2)
         print(num % 2, end='')
 
     @classmethod
-    def binaryToDecimal(cls,binary):
+    def binaryToDecimal(cls, binary):
         print("\n")
-        print(int(binary,2))
+        print(int(binary, 2))
